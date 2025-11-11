@@ -44,6 +44,7 @@ public class Lox {
                 break;
             }
             run(line);
+            hadError = false;
         }
     }
 
