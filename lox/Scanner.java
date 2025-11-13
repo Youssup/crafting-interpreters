@@ -80,6 +80,16 @@ class Scanner {
         }
     }
 
+    private boolean match(char expected) {
+        if(isAtEnd())
+            return false;
+        if(source.charAt(current) != expected)
+            return false;
+
+        current++;
+        return true;
+    }
+
     private boolean isAtEnd() {
         return current >= source.length();
     }
