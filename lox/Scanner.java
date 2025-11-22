@@ -77,10 +77,20 @@ class Scanner {
             case '/':
                 if (match('/')) {
                     // A comment goes until the end of the line.
-                    while (peek() != '\n' && !isAtEnd()) advance();
+                    while (peek() != '\n' && !isAtEnd()) {
+                        advance();
+                    }
                 } else {
                     addToken(SLASH);
                 }
+                break;
+            case ' ':
+            case '\r':
+            case '\t':
+                // Ignore whitespace.
+                break;
+            case '\n':
+                line++;
                 break;
             default:
                 Lox.error(line, "Unexpected character.");
@@ -89,17 +99,21 @@ class Scanner {
     }
 
     private boolean match(char expected) {
-        if (isAtEnd())
+        if (isAtEnd()) {
             return false;
-        if (source.charAt(current) != expected)
+        }
+        if (source.charAt(current) != expected) {
             return false;
+        }
 
         current++;
         return true;
     }
 
     private char peek() {
-        if (isAtEnd()) return '\0';
+        if (isAtEnd()) {
+            return '\0';
+        }
         return source.charAt(current);
     }
 
